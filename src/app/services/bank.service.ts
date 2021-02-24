@@ -1,94 +1,71 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
+const apiUrl=environment.apiUrl;
 @Injectable({
   providedIn: 'root'
 })
 export class BankService {
-  accountDetails: any = {
+  constructor(private http: HttpClient) { }
+  // accountDetails: any = {
 
-    userone: { acno: 1000, name: "ajay", balance: 1000, username: "userone", password: "testuser",history:[] },
-    usertwo: { acno: 1001, name: "sajay", balance: 20000, username: "usertwo", password: "testuser1",history:[] },
-    userthree: { acno: 1002, name: "vijay", balance: 25000, username: "userthree", password: "testuser2" ,history:[]},
+  //   userone: { acno: 1000, name: "ajay", balance: 1000, username: "userone", password: "testuser", history: [] },
+  //   usertwo: { acno: 1001, name: "sajay", balance: 20000, username: "usertwo", password: "testuser1", history: [] },
+  //   userthree: { acno: 1002, name: "vijay", balance: 25000, username: "userthree", password: "testuser2", history: [] },
 
 
-  }
+  // }
   authenticateUser = (uname: string, pwd: string) => {
-    let dataset = this.accountDetails
+    return this.http.post(apiUrl+"/login", {
+      "UserName": uname,
+      "password": pwd
 
-    if (uname in dataset) {
-      if (dataset[uname].password == pwd) {
-        return 1; //valid user password
-      }
-      else {
-        return 0; //incorrect password
-      }
-    }
-    else {
-      return -1; //no user exist
-    }
+    });
 
 
   }
-
-  deposit = (uname: string, pwd: string, amt: number) => {
-    let user = this.authenticateUser(uname, pwd)
-    let dataset = this.accountDetails;
-    if (user == 1) {
-
-      dataset[uname].balance += amt;
-      dataset[uname].history.push({
-        amount:amt, typeOfTransaction:'credit',
-
-      });
-      alert("your account credited with amount" + amt + "avail bal=" + dataset[uname].balance)
-
-
-    }
-    else if (user == 0) {
-      alert("incorrect password")
-
-    }
-    else if (user == -1) {
-      alert("no user exist with provided username")
-
-    }
-
+  generateHeader = () => {
+    let token = localStorage.getItem("token");
+    let headers = new HttpHeaders();
+    headers = headers.set("Authorization", "Bearer "+token)
+    return headers;
 
   }
-  withdraw = (uname: string, pwd: string, amt: number) => {
-    let user = this.authenticateUser(uname, pwd)
-    let dataset = this.accountDetails;
-    if (user == 1) {
-      if (dataset[uname].balance < amt) {
-        alert("insufficient balance")
-      }
-      else {
 
-        dataset[uname].balance -= amt;
-        dataset[uname].history.push({
-          amount:amt, typeOfTransaction:'debit',
+  deposit = (amt: number) => {
+
+    return this.http.post(apiUrl+"/deposit", {
+
+      "amount": amt
+    }, {
+      headers: this.generateHeader()
+
+    });
+  }
   
-        });
-        alert("your account debited with amount" + amt + "avail bal=" + dataset[uname].balance)
-      }
+  withdraw = (amt: number) => {
 
-    }
-    else if (user == 0) {
-      alert("incorrect password")
+    return this.http.post(apiUrl+"/withdraw", {
 
-    }
-    else if (user == -1) {
-      alert("no user exist with provided username")
+      "amount": amt
+    }, {
+      headers: this.generateHeader()
 
-    }
+    });
+  }
 
+  getHistory() {
+    return this.http.get(apiUrl+"/history", {
+      headers: this.generateHeader()
+
+    });
+  }
+  getProfile() {
+    return this.http.get(apiUrl+"/profile", {
+      headers: this.generateHeader()
+
+    });
     
   }
-  getHistory(){
-    let dataset=this.accountDetails;
-    return dataset["userone"].history;
-  }
 }
-
-
-

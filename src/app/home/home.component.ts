@@ -35,21 +35,27 @@ export class HomeComponent implements OnInit {
     
   // }
   deposit(){
-    const UserName=this.homeForm.value.UserName;
-    const password=this.homeForm.value.password;
+    // const UserName=this.homeForm.value.UserName;
+    // const password=this.homeForm.value.password;
     const amount=parseInt(this.homeForm.value.amount);
   
-    this.bankService.deposit(UserName,password,amount);
+    this.bankService.deposit(amount)
+    .subscribe((data:any)=>{
+      alert(data.message);
+    });
     this.router.navigateByUrl("/history");
 
   }
   withdraw(){
-    const UserName=this.homeForm.value.UserName;
-    const password=this.homeForm.value.password;
+  //   const UserName=this.homeForm.value.UserName;
+  //   const password=this.homeForm.value.password;
     const amount=parseInt(this.homeForm.value.amount);
-    alert(UserName);
-    alert(password);
-    this.bankService.withdraw(UserName,password,amount);
+  //   alert(UserName);
+  //   alert(password);
+    this.bankService.withdraw(amount)
+    .subscribe((data:any)=>{
+      alert(data.message);
+    });
     this.router.navigateByUrl("/history");
     
 

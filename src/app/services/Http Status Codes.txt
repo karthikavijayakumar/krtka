@@ -1,0 +1,11 @@
+Http Status Codes
+=================
+100-199 - Informational Responses
+200-299 - Successful Responses
+300-399 - Redirects
+400-499 - Client errors
+500-599 - Server errors
+
+400 - Bad request
+401 - Unauthorized
+422 - Unprocessable entity 

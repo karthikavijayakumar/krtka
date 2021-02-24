@@ -1,0 +1,64 @@
+<div class="background-image">
+    <div class="container">
+
+
+        <div class="main">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col" style="color: white;">
+                    <h1>Login SBN Bank</h1>
+                </div>
+                <div class="col"></div>
+                <!-- <input type="text" [(ngModel)] = "test"> -->
+                <form [formGroup]="profileForm">
+                    <br>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="form-label" style="color:blue;">Username <span
+                                class="required" style="color: red;">*</span> </label>
+                        <input formControlName="username" name="username" type="text" class="form-control"
+                            aria-describedby="emailHelp">
+                        <label
+                            *ngIf="profileForm.get('username')?.touched && profileForm.get('username')?.errors?.required"
+                            style="color: red;" for="" id="uinvalid">UserName is required</label>
+                        <div id="emailHelp" class="form-text" style="color:blue;">We'll never share your email with
+                            anyone
+                            else.</div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="exampleInputAcno1" class="form-label " style="color:blue;">Acno <span
+                                class="required" style="color: red;">*</span></label>
+                        <input formControlName="acno" name="acno" type="acno" class="form-control">
+                        <div *ngIf="profileForm.get('acno')?.touched && profileForm.get('acno')?.errors">
+                            <label *ngIf="profileForm.get('acno')?.errors?.required" style="color: red;" for=""
+                                id="pinvalid">acno is required</label>
+                            <label *ngIf="profileForm.get('acno')?.errors?.minlength" style="color: red;" for=""
+                                id="pinvalid">acno must be atleast 5 characters</label>
+
+                        </div>
+
+                    </div>
+                    <br>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputBalance1" class="form-label " style="color:blue;">Balance <span
+                                class="required" style="color: red;">*</span></label>
+                        <input formControlName="balance" name="balance" type="balance" class="form-control">
+                        <div *ngIf="profileForm.get('balance')?.touched && profileForm.get('balance')?.errors">
+                            <label *ngIf="profileForm.get('balance')?.errors?.required" style="color: red;" for=""
+                                id="pinvalid">balance is required</label>
+                            <label *ngIf="profileForm.get('balance')?.errors?.minlength" style="color: red;" for=""
+                                id="pinvalid">balance must be atleast 5 characters</label>
+
+                        </div>
+
+                    </div>
+                    <br>
+               
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

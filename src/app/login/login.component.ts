@@ -9,12 +9,13 @@ import { BankService } from '../services/bank.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  // test = "hello world";
   // UserName = "";
   // Password = "";
 
   loginForm = this.fb.group({
     UserName: ["", [Validators.required]],
-    password: ["", [Validators.required,Validators.minLength]]
+    password: ["", [Validators.required,Validators.minLength(4)]]
     // password: ["", [Validators.required,Validators.pattern("^(?=[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]]
   })
   constructor(private router: Router, private bankService: BankService, private fb: FormBuilder) {
@@ -40,21 +41,30 @@ export class LoginComponent {
       const password = this.loginForm.value.password;
 
 
-      const user = this.bankService.authenticateUser(UserName, password);
-      if (user == 1) {
-        alert("login successful")
-        this.router.navigateByUrl("/home");
+     this.bankService.authenticateUser(UserName, password)
+      .subscribe((data:any)=>{
+        alert(data.message)
+        alert(data.token)
+        localStorage.setItem("token",data.token);
+        // console.log(data)
+         this.router.navigateByUrl("/home");
+      },(err)=>{
+        alert(err.error.message);
+        })
+      // if (user == 1) {
+      //   alert("login successful")
+      //   this.router.navigateByUrl("/home");
 
 
-      }
-      else if (user == 0) {
-        alert("incorrect password")
+      // }
+      // else if (user == 0) {
+      //   alert("incorrect password")
 
-      }
-      else if (user == -1) {
-        alert("no user exist with provided username")
+      // }
+      // else if (user == -1) {
+      //   alert("no user exist with provided username")
 
-      }
+      // }
 
     }
 
