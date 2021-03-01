@@ -14,9 +14,9 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1" class="form-label" style="color: white;">UserName <span class="required"style="color: red;" >*</span></label>
-                        <input formControlName="UserName" name="UserName" type="text" class="form-control" 
+                        <input formControlName="username" name="username" type="text" class="form-control" 
                             aria-describedby="emailHelp">
-                            <label *ngIf="loginForm.get('UserName')?.touched && loginForm.get('UserName')?.errors?.required" style="color: red;" for="" id="uinvalid">UserName is required</label>
+                            <label *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.errors?.required" style="color: red;" for="" id="uinvalid">UserName is required</label>
                         <div id="emailHelp" class="form-text" style="color: white;">We'll never share your email with
                             anyone
                             else.</div>

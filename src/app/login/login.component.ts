@@ -14,7 +14,7 @@ export class LoginComponent {
   // Password = "";
 
   loginForm = this.fb.group({
-    UserName: ["", [Validators.required]],
+    username: ["", [Validators.required]],
     password: ["", [Validators.required,Validators.minLength(4)]]
     // password: ["", [Validators.required,Validators.pattern("^(?=[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]]
   })
@@ -37,11 +37,11 @@ export class LoginComponent {
 
     }
     else {
-      const UserName = this.loginForm.value.UserName;
+      const username = this.loginForm.value.username;
       const password = this.loginForm.value.password;
 
 
-     this.bankService.authenticateUser(UserName, password)
+     this.bankService.authenticateUser(username, password)
       .subscribe((data:any)=>{
         alert(data.message)
         alert(data.token)

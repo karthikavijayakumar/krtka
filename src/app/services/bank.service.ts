@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
-const apiUrl=environment.apiUrl;
+const apiUrl = environment.apiUrl;
 @Injectable({
   providedIn: 'root'
 })
@@ -17,8 +17,8 @@ export class BankService {
 
   // }
   authenticateUser = (uname: string, pwd: string) => {
-    return this.http.post(apiUrl+"/login", {
-      "UserName": uname,
+    return this.http.post(apiUrl + "/login", {
+      "username": uname,
       "password": pwd
 
     });
@@ -28,14 +28,14 @@ export class BankService {
   generateHeader = () => {
     let token = localStorage.getItem("token");
     let headers = new HttpHeaders();
-    headers = headers.set("Authorization", "Bearer "+token)
+    headers = headers.set("Authorization", "Bearer " + token)
     return headers;
 
   }
 
   deposit = (amt: number) => {
 
-    return this.http.post(apiUrl+"/deposit", {
+    return this.http.post(apiUrl + "/deposit", {
 
       "amount": amt
     }, {
@@ -43,10 +43,10 @@ export class BankService {
 
     });
   }
-  
+
   withdraw = (amt: number) => {
 
-    return this.http.post(apiUrl+"/withdraw", {
+    return this.http.post(apiUrl + "/withdraw", {
 
       "amount": amt
     }, {
@@ -56,16 +56,36 @@ export class BankService {
   }
 
   getHistory() {
-    return this.http.get(apiUrl+"/history", {
+    return this.http.get(apiUrl + "/history", {
       headers: this.generateHeader()
 
     });
   }
   getProfile() {
-    return this.http.get(apiUrl+"/profile", {
+    return this.http.get(apiUrl + "/profile", {
       headers: this.generateHeader()
 
     });
-    
+
+
   }
+  getUsers() {
+    return this.http.get(apiUrl + "/users", {
+      headers: this.generateHeader()
+
+    });
+  }
+  updateProfile(username: string, balance: Number, acno: Number) {
+    return this.http.patch(apiUrl + "/profile", {
+
+      username,
+      balance,
+      acno
+    }, {
+      headers: this.generateHeader()
+
+    });
+
+  }
+
 }

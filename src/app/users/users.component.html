@@ -1,0 +1,17 @@
+<table>
+    <tr>
+        <td>Username</td>
+        <td>Account Number </td>
+        <td>Balance </td>
+        <td>Edit
+        
+    </tr>
+    
+    <tr *ngFor="let item of users">
+        <td>{{item.username}}</td>
+        <td>{{item.acno}}</td> 
+        <td>{{item.balance}}</td> 
+        <td> <button (click)="edit(item)">Edit</button></td> 
+        
+    </tr>
+    </table>

@@ -10,7 +10,7 @@
                 </div>
                 <div class="col"></div>
                 <!-- <input type="text" [(ngModel)] = "test"> -->
-                <form [formGroup]="profileForm">
+                <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
                     <br>
                     <div class="form-group">
                         <label for="exampleInputEmail1" class="form-label" style="color:blue;">Username <span
@@ -56,7 +56,7 @@
                     </div>
                     <br>
                
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="updateProfile" class="btn btn-primary">Submit</button>
             </form>
             </div>
         </div>

@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   // Password="";
   // Amount:number=0;
   homeForm=this.fb.group({
-    UserName:[""],
+    username:[""],
     password:[""],
     amount:[0]
   })
